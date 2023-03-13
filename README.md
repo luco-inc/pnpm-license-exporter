@@ -1,0 +1,1 @@
+# pnpm-license-exporter
