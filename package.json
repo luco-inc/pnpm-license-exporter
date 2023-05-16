@@ -6,7 +6,12 @@
     "test": "turbo run test",
     "eslint": "turbo run eslint",
     "prettier": "turbo run prettier",
-    "prepare": "pnpm run build"
+    "license": "node ./scripts/license.js",
+    "prepare": "pnpm run build",
+    "postinstall": "pnpm run license"
+  },
+  "dependencies": {
+    "@luco-inc/pnpm-license-exporter": "workspace:*"
   },
   "devDependencies": {
     "@typescript-eslint/parser": "5.59.6",
