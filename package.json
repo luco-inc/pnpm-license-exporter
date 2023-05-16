@@ -11,8 +11,7 @@
     "changeset:init": "changeset init",
     "changeset:version": "changeset version",
     "changeset:publish": "changeset publish",
-    "prepare": "pnpm run build",
-    "postinstall": "pnpm run license"
+    "prepare": "pnpm run build && pnpm run license"
   },
   "dependencies": {
     "@luco-inc/pnpm-license-exporter": "workspace:*"
