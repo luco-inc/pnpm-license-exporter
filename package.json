@@ -7,6 +7,10 @@
     "eslint": "turbo run eslint",
     "prettier": "turbo run prettier",
     "license": "node ./scripts/license.js",
+    "changeset": "changeset",
+    "changeset:init": "changeset init",
+    "changeset:version": "changeset version",
+    "changeset:publish": "changeset publish",
     "prepare": "pnpm run build",
     "postinstall": "pnpm run license"
   },
@@ -14,6 +18,7 @@
     "@luco-inc/pnpm-license-exporter": "workspace:*"
   },
   "devDependencies": {
+    "@changesets/cli": "2.26.1",
     "@typescript-eslint/parser": "5.59.6",
     "@vitest/coverage-c8": "0.31.0",
     "eslint": "8.40.0",

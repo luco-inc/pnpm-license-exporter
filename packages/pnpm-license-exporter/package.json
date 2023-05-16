@@ -1,6 +1,6 @@
 {
   "name": "@luco-inc/pnpm-license-exporter",
-  "version": "0.0.0",
+  "version": "1.0.0",
   "description": "",
   "keywords": [],
   "files": [
@@ -26,5 +26,14 @@
   },
   "devDependencies": {
     "@types/node": "20.1.5"
+  },
+  "repository": "https://github.com/luco-inc/pnpm-license-exporter",
+  "bugs": {
+    "url": "https://github.com/luco-inc/pnpm-license-exporter/issues"
+  },
+  "homepage": "https://github.com/luco-inc/pnpm-license-exporter#readme",
+  "publishConfig": {
+    "access": "restricted",
+    "registry": "https://npm.pkg.github.com/"
   }
 }
