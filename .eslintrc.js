@@ -49,6 +49,12 @@ module.exports = {
         'import/no-extraneous-dependencies': 'off',
       },
     },
+    {
+      files: ['vite.config.ts'],
+      rules: {
+        'import/no-extraneous-dependencies': 'off',
+      },
+    },
   ],
   ignorePatterns: ['*.js', '*.mjs', '**/dist'],
 };

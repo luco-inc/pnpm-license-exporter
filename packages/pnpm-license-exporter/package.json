@@ -17,8 +17,11 @@
     }
   },
   "scripts": {
+    "build": "pnpm run vite:build && pnpm run tsc",
+    "vite:build": "vite build",
     "prettier": "prettier --write --check src",
     "eslint": "eslint -c ../../.eslintrc.js --max-warnings=0 --fix --ext .ts src",
+    "tsc": "tsc",
     "test": "vitest run --config ../../vitest.config.js src"
   },
   "devDependencies": {
