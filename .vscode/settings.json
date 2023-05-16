@@ -1,0 +1,9 @@
+{
+  "editor.formatOnSave": true,
+  "editor.defaultFormatter": "esbenp.prettier-vscode",
+  "editor.formatOnPaste": true,
+  "editor.formatOnType": true,
+  "editor.codeActionsOnSave": ["source.fixAll.eslint"],
+  "vitest.enable": true,
+  "vitest.commandLine": "pnpx vitest"
+}

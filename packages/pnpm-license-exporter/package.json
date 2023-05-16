@@ -1,0 +1,27 @@
+{
+  "name": "@luco-inc/pnpm-license-exporter",
+  "version": "0.0.0",
+  "description": "",
+  "keywords": [],
+  "files": [
+    "dist",
+    "src"
+  ],
+  "main": "./dist/pnpm-license-exporter.umd.js",
+  "module": "./dist/pnpm-license-exporter.mjs",
+  "types": "./dist/index.d.ts",
+  "exports": {
+    ".": {
+      "import": "./dist/pnpm-license-exporter.mjs",
+      "require": "./dist/pnpm-license-exporter.umd.js"
+    }
+  },
+  "scripts": {
+    "prettier": "prettier --write --check src",
+    "eslint": "eslint -c ../../.eslintrc.js --max-warnings=0 --fix --ext .ts src",
+    "test": "vitest run --config ../../vitest.config.js src"
+  },
+  "devDependencies": {
+    "@types/node": "20.1.5"
+  }
+}

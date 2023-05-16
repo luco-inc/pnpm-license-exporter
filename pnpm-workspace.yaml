@@ -1,0 +1,6 @@
+packages:
+  - 'packages/**'
+  - 'apps/**'
+  # Ignore test files
+  - '!**/test/**'
+  - '!**/*/*.test.*'
