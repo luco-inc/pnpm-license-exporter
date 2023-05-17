@@ -12,9 +12,10 @@ export type PnpmLicenses = {
   [license: string]: PnpmPackageInfo[];
 };
 
-export type PnpmPackageWithLicenseTxt = {
-  licenseTxt: string;
-} & PnpmPackageInfo;
+export type ExportedPnpmPackageInfo = {
+  licenseTxt?: string;
+  // path property is only not exported
+} & Omit<PnpmPackageInfo, 'path'>;
 
 export type LicensePackageInfo = Omit<PnpmPackageInfo, 'path'>;
 
