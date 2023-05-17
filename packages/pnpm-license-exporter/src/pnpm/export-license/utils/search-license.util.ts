@@ -1,12 +1,10 @@
 import { readdir } from 'node:fs/promises';
-import type { PnpmPackageInfo, PnpmPackageWithLicenseTxt } from '../types/export-licenses.types';
+import type { PnpmPackageInfo, ExportedPnpmPackageInfo } from '../types/export-licenses.types';
 import { readLicense } from './read-license.util';
-
-type PackageIfHasLicense = PnpmPackageWithLicenseTxt | PnpmPackageInfo;
 
 export function searchLicense(packages: PnpmPackageInfo[]) {
   return Promise.all(
-    packages.map(async (pnpmPackage): Promise<PackageIfHasLicense | undefined> => {
+    packages.map(async (pnpmPackage): Promise<ExportedPnpmPackageInfo | undefined> => {
       const dirents = await readdir(pnpmPackage.path, { withFileTypes: true });
       const licenseDirent = dirents.find((dirent) => dirent.name.toLowerCase().includes('license'));
       if (licenseDirent === undefined) {
@@ -16,7 +14,9 @@ export function searchLicense(packages: PnpmPackageInfo[]) {
         name: pnpmPackage.name,
         licensePath: `${pnpmPackage.path}/${licenseDirent.name}`,
       });
-      return licenseTxt === undefined ? pnpmPackage : { ...pnpmPackage, licenseTxt };
+      // remove path property
+      const { path, ...PnpmPackageInfo } = pnpmPackage;
+      return licenseTxt === undefined ? PnpmPackageInfo : { ...PnpmPackageInfo, licenseTxt };
     }),
   ).then((licenses) => licenses.filter(Boolean));
 }
