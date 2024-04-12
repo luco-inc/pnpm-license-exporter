@@ -11,7 +11,7 @@ test('should return packages', () => {
     generateFlatPnpmPackages({
       recursive: true,
       dev: false,
-      noProd: true,
+      noProd: false,
       noOptional: false,
     })
   ).toStrictEqual([
