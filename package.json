@@ -12,11 +12,7 @@
     "eslint": "eslint -c .eslintrc.cjs --max-warnings=0 --fix --ext .ts src",
     "test": "vitest run --config vitest.config.js src",
     "license": "node ./scripts/license.js",
-    "release": "np",
-    "changeset": "changeset",
-    "changeset:init": "changeset init",
-    "changeset:version": "changeset version",
-    "changeset:publish": "changeset publish"
+    "release": "np"
   },
   "files": [
     "dist"
@@ -35,7 +31,6 @@
     "pnpm-license-exporter": "./dist/bin/pnpm-license-exporter.cjs"
   },
   "devDependencies": {
-    "@changesets/cli": "2.27.1",
     "@types/node": "20.12.7",
     "@typescript-eslint/eslint-plugin": "7.6.0",
     "@typescript-eslint/parser": "7.6.0",
