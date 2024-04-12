@@ -4,7 +4,7 @@ module.exports = {
     globals: true,
     coverage: {
       enabled: true,
-      provider: 'c8',
+      provider: 'v8',
       statements: 85,
       branches: 85,
       functions: 85,
