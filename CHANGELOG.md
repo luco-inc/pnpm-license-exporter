@@ -1,5 +1,11 @@
 # @luco-inc/pnpm-license-exporter
 
+## 2.0.0
+
+### Major Changes
+
+- Overall revamp of package internals
+
 ## 1.0.1
 
 ### Patch Changes

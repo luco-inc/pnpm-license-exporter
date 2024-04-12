@@ -1,47 +1,28 @@
 /** @type import('eslint').Linter.BaseConfig */
 module.exports = {
+  root: true,
   env: {
     node: true,
-    'vitest-globals/env': true,
   },
   extends: [
-    'airbnb-base',
-    'airbnb-typescript/base',
-    'plugin:unicorn/recommended',
+    'eslint:recommended',
     'plugin:@typescript-eslint/recommended',
-    'plugin:@typescript-eslint/recommended-requiring-type-checking',
-    'plugin:vitest/all',
-    'plugin:vitest-globals/recommended',
     'prettier',
   ],
-  parserOptions: {
-    project: 'tsconfig.json',
-    tsconfigRootDir: __dirname,
-  },
+  parser: '@typescript-eslint/parser',
   rules: {
-    'import/prefer-default-export': 'off',
-    'import/extensions': 'off',
     '@typescript-eslint/restrict-template-expressions': 'off',
     '@typescript-eslint/no-floating-promises': 'off',
     '@typescript-eslint/naming-convention': 'off',
     '@typescript-eslint/no-var-requires': 'off',
-    'unicorn/prevent-abbreviations': 'off',
-    'unicorn/no-useless-undefined': 'off',
-    'unicorn/no-await-expression-member': 'off',
-    'unicorn/prefer-module': 'off',
-    'unicorn/no-null': 'off',
-    'no-console': [
-      'error',
-      {
-        allow: ['error'],
-      },
-    ],
-    'vitest/require-top-level-describe': 'off',
+    "@typescript-eslint/no-unused-vars": "off",
   },
   overrides: [
     {
       files: ['**/*.test.tsx', '**/*.test.ts'],
+      plugins: ["vitest"],
       rules: {
+        'vitest/require-top-level-describe': 'off',
         '@typescript-eslint/await-thenable': 'off',
         '@typescript-eslint/no-unsafe-assignment': 'off',
         '@typescript-eslint/no-unsafe-call': 'off',
