@@ -3,15 +3,13 @@
   "version": "1.0.1",
   "description": "",
   "license": "MIT",
-  "private": true,
   "type": "module",
   "scripts": {
     "dev": "tsup --watch --onSuccess \"node ./dist/bin/pnpm-license-exporter.cjs\"",
     "build": "tsup",
     "prettier": "prettier --write --check src",
     "eslint": "eslint -c .eslintrc.cjs --max-warnings=0 --fix --ext .ts src",
-    "test": "vitest run --config vitest.config.js src",
-    "license": "node ./scripts/license.js",
+    "test": "vitest run --config vitest.config.ts src",
     "release": "np"
   },
   "files": [
