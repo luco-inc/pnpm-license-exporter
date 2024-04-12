@@ -2,10 +2,23 @@ import { execSync } from 'node:child_process';
 
 import type { PnpmLicenses, PnpmPackageInfo } from '../types/export-licenses.types';
 
-export function generateFlatPnpmPackages(): PnpmPackageInfo[] {
+type argsType = { recursive: boolean; dev: boolean; noProd: boolean; noOptional: boolean };
+
+export function generateFlatPnpmPackages({
+  recursive,
+  dev,
+  noProd,
+  noOptional,
+}: argsType): PnpmPackageInfo[] {
   try {
+    if (noProd && !dev) {
+      console.warn(
+        '\u001b[33mWARN\u001b[0m: Skipping license export because both dev and prod are set to false'
+      );
+      return [];
+    }
     const pnpmRawCommandResultString = execSync(
-      'pnpm licenses ls --json --prod --recursive'
+      `pnpm licenses ls --json ${recursive ? '--recursive ' : ''}${noOptional ? '--no-optional ' : ''}${!noProd && dev ? '' : !noProd && !dev ? '--prod' : dev && noProd ? '--dev' : ''}`
     ).toString('utf8');
     if (pnpmRawCommandResultString === 'No licenses in packages found\n') {
       console.warn(
@@ -13,9 +26,7 @@ export function generateFlatPnpmPackages(): PnpmPackageInfo[] {
       );
       return [];
     }
-    const pnpmRawCommandResult = JSON.parse(
-      execSync('pnpm licenses ls --json --prod --recursive').toString('utf8')
-    ) as unknown as PnpmLicenses;
+    const pnpmRawCommandResult = JSON.parse(pnpmRawCommandResultString) as unknown as PnpmLicenses;
 
     const packagesCollection = new Map<string, PnpmPackageInfo[]>(
       Object.entries(pnpmRawCommandResult)
