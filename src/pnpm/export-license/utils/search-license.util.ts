@@ -1,12 +1,12 @@
-import { readdir } from 'node:fs/promises';
 import type { PnpmPackageInfo, ExportedPnpmPackageInfo } from '../types/export-licenses.types';
 import { readLicense } from './read-license.util';
+import { findLicenseDirent } from './find-license-dirent';
+import { buildExportedPnpmPackageInfo } from './build-exported-pnpm-package-info';
 
-export function searchLicense(packages: PnpmPackageInfo[]) {
+export function searchLicense(packages: PnpmPackageInfo[]): Promise<(ExportedPnpmPackageInfo|undefined)[]> {
   return Promise.all(
     packages.map(async (pnpmPackage): Promise<ExportedPnpmPackageInfo | undefined> => {
-      const dirents = await readdir(pnpmPackage.path, { withFileTypes: true });
-      const licenseDirent = dirents.find((dirent) => dirent.name.toLowerCase().includes('license'));
+      const licenseDirent = await findLicenseDirent(pnpmPackage.path);
       if (licenseDirent === undefined) {
         return undefined;
       }
@@ -14,9 +14,7 @@ export function searchLicense(packages: PnpmPackageInfo[]) {
         name: pnpmPackage.name,
         licensePath: `${pnpmPackage.path}/${licenseDirent.name}`,
       });
-      // remove path property
-      const { path, ...PnpmPackageInfo } = pnpmPackage;
-      return licenseTxt === undefined ? PnpmPackageInfo : { ...PnpmPackageInfo, licenseTxt };
+      return buildExportedPnpmPackageInfo(pnpmPackage, licenseTxt);
     }),
   ).then((licenses) => licenses.filter(Boolean));
 }
