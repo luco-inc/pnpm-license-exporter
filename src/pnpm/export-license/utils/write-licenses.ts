@@ -2,7 +2,7 @@ import { writeFile, mkdir } from 'node:fs/promises';
 
 import { generateFlatPnpmPackages } from './generate-flat-pnpm-packages.util';
 import { searchLicense } from './search-license.util';
-import { argsOptions } from '../../../bin/pnpm-license-exporter';
+import { argsOptions } from '../../../bin/args-options';
 import path from 'node:path';
 
 type argType = {
