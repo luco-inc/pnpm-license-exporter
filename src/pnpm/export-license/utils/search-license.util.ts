@@ -7,19 +7,39 @@ export function searchLicense(
   packages: PnpmPackageInfo[]
 ): Promise<(ExportedPnpmPackageInfo | undefined)[]> {
   return Promise.all(
-    packages.map(async (pnpmPackage): Promise<ExportedPnpmPackageInfo | undefined> => {
-      if (!pnpmPackage.path) {
-        return undefined;
+    packages.map(
+      async (
+        pnpmPackage
+      ): Promise<ExportedPnpmPackageInfo | undefined | (ExportedPnpmPackageInfo | undefined)[]> => {
+        if (Array.isArray(pnpmPackage.path)) {
+          return await Promise.all(
+            pnpmPackage.path.map(async (path) => {
+              const licenseDirent = await findLicenseDirent(path);
+              if (licenseDirent === undefined) {
+                return undefined;
+              }
+              const licenseTxt = await readLicense({
+                name: pnpmPackage.name,
+                licensePath: `${path}/${licenseDirent.name}`,
+              });
+              return buildExportedPnpmPackageInfo(pnpmPackage, licenseTxt);
+            })
+          );
+        } else {
+          const licenseDirent = await findLicenseDirent(pnpmPackage.path);
+          if (licenseDirent === undefined) {
+            return undefined;
+          }
+          const licenseTxt = await readLicense({
+            name: pnpmPackage.name,
+            licensePath: `${pnpmPackage.path}/${licenseDirent.name}`,
+          });
+          return buildExportedPnpmPackageInfo(pnpmPackage, licenseTxt);
+        }
       }
-      const licenseDirent = await findLicenseDirent(pnpmPackage.path);
-      if (licenseDirent === undefined) {
-        return undefined;
-      }
-      const licenseTxt = await readLicense({
-        name: pnpmPackage.name,
-        licensePath: `${pnpmPackage.path}/${licenseDirent.name}`,
-      });
-      return buildExportedPnpmPackageInfo(pnpmPackage, licenseTxt);
-    })
-  ).then((licenses) => licenses.filter(Boolean));
+    )
+  ).then((licenses) => {
+    const li = licenses.flat();
+    return li.filter(Boolean);
+  });
 }
