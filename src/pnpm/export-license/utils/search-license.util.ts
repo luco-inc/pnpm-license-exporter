@@ -11,9 +11,9 @@ export function searchLicense(
       async (
         pnpmPackage
       ): Promise<ExportedPnpmPackageInfo | undefined | (ExportedPnpmPackageInfo | undefined)[]> => {
-        if (Array.isArray(pnpmPackage.path)) {
+        if (pnpmPackage.paths) {
           return await Promise.all(
-            pnpmPackage.path.map(async (path) => {
+            pnpmPackage.paths.map(async (path) => {
               const licenseDirent = await findLicenseDirent(path);
               if (licenseDirent === undefined) {
                 return undefined;
@@ -25,7 +25,7 @@ export function searchLicense(
               return buildExportedPnpmPackageInfo(pnpmPackage, licenseTxt);
             })
           );
-        } else {
+        } else if (pnpmPackage.path) {
           const licenseDirent = await findLicenseDirent(pnpmPackage.path);
           if (licenseDirent === undefined) {
             return undefined;
@@ -35,6 +35,8 @@ export function searchLicense(
             licensePath: `${pnpmPackage.path}/${licenseDirent.name}`,
           });
           return buildExportedPnpmPackageInfo(pnpmPackage, licenseTxt);
+        } else {
+          return undefined;
         }
       }
     )

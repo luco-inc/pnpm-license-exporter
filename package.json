@@ -1,6 +1,6 @@
 {
   "name": "@luco-inc/pnpm-license-exporter",
-  "version": "3.0.4",
+  "version": "3.0.5",
   "description": "Dependencies license exporter for projects using pnpm.",
   "license": "MIT",
   "type": "module",
