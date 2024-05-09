@@ -5,6 +5,6 @@ export function buildExportedPnpmPackageInfo(
   licenseTxt: undefined | string
 ): ExportedPnpmPackageInfo {
   // remove path property
-  const { path, paths, ...PnpmPackageInfo } = pnpmPackage;
+  const { path, paths, versions, ...PnpmPackageInfo } = pnpmPackage;
   return licenseTxt === undefined ? PnpmPackageInfo : { ...PnpmPackageInfo, licenseTxt };
 }

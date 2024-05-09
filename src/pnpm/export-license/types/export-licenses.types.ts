@@ -1,6 +1,7 @@
 export type PnpmPackageInfo = {
   name: string;
-  version: string;
+  version?: string;
+  versions?: string[];
   license: string;
   author: string;
   description: string;
@@ -16,9 +17,9 @@ export type PnpmLicenses = {
 export type ExportedPnpmPackageInfo = {
   licenseTxt?: string;
   // path property is only not exported
-} & Omit<PnpmPackageInfo, 'path' | 'paths'>;
+} & Omit<PnpmPackageInfo, 'path' | 'paths' | 'versions'>;
 
-export type LicensePackageInfo = Omit<PnpmPackageInfo, 'path' | 'paths'>;
+export type LicensePackageInfo = Omit<PnpmPackageInfo, 'path' | 'paths' | 'versions'>;
 
 export type LicensePackageKey = keyof LicensePackageInfo;
 

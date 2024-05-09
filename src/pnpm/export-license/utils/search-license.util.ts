@@ -13,7 +13,7 @@ export function searchLicense(
       ): Promise<ExportedPnpmPackageInfo | undefined | (ExportedPnpmPackageInfo | undefined)[]> => {
         if (pnpmPackage.paths) {
           return await Promise.all(
-            pnpmPackage.paths.map(async (path) => {
+            pnpmPackage.paths.map(async (path, index) => {
               const licenseDirent = await findLicenseDirent(path);
               if (licenseDirent === undefined) {
                 return undefined;
@@ -22,7 +22,17 @@ export function searchLicense(
                 name: pnpmPackage.name,
                 licensePath: `${path}/${licenseDirent.name}`,
               });
-              return buildExportedPnpmPackageInfo(pnpmPackage, licenseTxt);
+              return buildExportedPnpmPackageInfo(
+                {
+                  ...pnpmPackage,
+                  version: pnpmPackage.versions
+                    ? pnpmPackage.versions[index]
+                      ? pnpmPackage.versions[index]
+                      : pnpmPackage.versions[0]
+                    : pnpmPackage.version,
+                },
+                licenseTxt
+              );
             })
           );
         } else if (pnpmPackage.path) {
