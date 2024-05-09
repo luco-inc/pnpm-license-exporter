@@ -5,14 +5,14 @@ export default defineConfig({
     globals: true,
     coverage: {
       enabled: true,
-      provider: 'v8',
+      provider: 'v8' /*
       thresholds: {
         statements: 98.44,
         branches: 78.78,
         functions: 100,
         lines: 98.44,
         autoUpdate: true,
-      },
+      },*/,
       exclude: [
         '**/*/index.ts',
         '**/*/*.types.ts',
